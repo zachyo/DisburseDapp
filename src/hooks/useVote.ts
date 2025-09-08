@@ -3,7 +3,7 @@ import {
   useAccount,
   useWalletClient,
   useWriteContract,
-  useWaitForTransactionReceipt,
+  usePublicClient,
   // useReadContract,
 } from "wagmi";
 import {
@@ -16,6 +16,7 @@ const useVote = () => {
   const { address } = useAccount();
   const { writeContractAsync } = useWriteContract();
   const walletClient = useWalletClient();
+  const publicClient = usePublicClient();
 
   // const res = useReadContract({
   //   abi: GOVERNACE_ADDRESS_ABI,
@@ -28,16 +29,14 @@ const useVote = () => {
   // console.log("resultObject: ", res.data);
 
   return useCallback(
-    async (
-      id: number
-    ) => {
-      if (!address || !walletClient) {
+
+    async (id: number) => {
+      if (!address || !walletClient || !publicClient) {
         toast.error("Not connected", {
           description: "Kindly connect your wallet",
         });
         return;
       }
-
 
       const txHash = await writeContractAsync({
         address: import.meta.env.VITE_QUADRATIC_GOVERNACE_CONTRACT,
@@ -47,7 +46,9 @@ const useVote = () => {
         args: [id],
       });
 
-      const txReceipt = useWaitForTransactionReceipt({ hash: txHash });
+      const txReceipt = await publicClient.waitForTransactionReceipt({
+        hash: txHash,
+      });
 
       console.log("txHash: ", txHash, txReceipt);
 

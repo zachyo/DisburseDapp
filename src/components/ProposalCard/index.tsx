@@ -34,6 +34,7 @@ const ProposalCard = ({
 }) => {
   const hasVoted = useHasVoted(id);
   const voteProposal = useVote();
+
   return (
     <Card className="min-w-[350px] max-w-sm h-full flex flex-col justify-between">
       <div className="">

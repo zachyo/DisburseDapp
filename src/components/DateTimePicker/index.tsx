@@ -39,7 +39,7 @@ export function DateTimePicker({date, setDate}: {
           <PopoverContent className="w-auto overflow-hidden z-[1000] p-0" align="start">
             <Calendar
               mode="single"
-              selected={date}
+              selected={date}                            
               captionLayout="dropdown"
               onSelect={(date) => {
                 setDate(date);

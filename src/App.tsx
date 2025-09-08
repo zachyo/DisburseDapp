@@ -9,8 +9,6 @@ import { Toaster } from "./components/ui/sonner";
 import useTransferTokens from "./hooks/useTransferTokens";
 import useGetContractBalance from "./hooks/useGetContractBalance";
 import { formatEther } from "viem";
-import useGetSingleProposal from "./hooks/useGetSingleProposal";
-import useGetProposalCount from "./hooks/useGetProposalCount";
 import useGetAllProposals from "./hooks/useGetAllProposals";
 
 function App() {
@@ -54,7 +52,7 @@ function App() {
           <div className="text-center font-semibold text-2xl">
             Contract Balance : {formatEther(BigInt(balance ?? 0))} ETH
           </div>
-          {isLoading ? (
+          {false ? (
             <span className="flex justify-center">Loading proposals...</span>
           ) : (
             <Tabs defaultValue="active" className=" w-full">
